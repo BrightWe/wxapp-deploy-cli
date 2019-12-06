@@ -4,7 +4,6 @@ echo 代码分支: ${GIT_BRANCH}
 echo -------------------------------------------------------
 # 准备工作
 
-# 加速包安装以及node-sass
 yarn config set registry https://registry.npm.taobao.org
 
 # 安装依赖

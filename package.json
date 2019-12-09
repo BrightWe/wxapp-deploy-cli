@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "cli tools for deploy wechat applet automaticlly",
   "main": "index.js",
+  "bin": {
+    "wxapp-deploy-cli": "index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +20,8 @@
   },
   "homepage": "https://github.com/sept08/wxapp-deploy-cli#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^6.7.2"
   },
   "dependencies": {

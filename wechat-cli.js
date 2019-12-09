@@ -75,7 +75,11 @@ class WeChatCli {
                 break;
             case 'win32':
                 // defaults read
-                wxPaths = ['C:\\Program Files (x86)\\Tencent\\微信web开发者工具\\cli.bat', 'C:\\Program Files\\Tencent\\微信web开发者工具\\cli.bat'];
+                wxPaths = [
+                    'C:\\Program Files (x86)\\Tencent\\微信web开发者工具\\cli.bat',
+                    'C:\\Program Files\\Tencent\\微信web开发者工具\\cli.bat',
+                    'D:\\FE\\微信web开发者工具\\cli.bat'
+                ];
                 const iconv = require('iconv-lite');
                 const encoding = 'cp936';
                 const binaryEncoding = 'binary';

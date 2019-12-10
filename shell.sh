@@ -15,7 +15,7 @@ rm -rf dist && npm run build:$build_type
 
 if [ "$build_type" == "prod" ] || [ "$build_type" == "publish" ]
   then
-    mini-deploy --mode=upload --ver=$upload_version --desc="$upload_desc" --login.format=image --login.qr='login.png' --no-resume
+    wxapp-deploy-cli --mode=upload --ver=$upload_version --desc="$upload_desc" --login.format=image --login.qr='login.png' --no-resume
 
     let "result |= $?"
 
@@ -27,7 +27,7 @@ if [ "$build_type" == "prod" ] || [ "$build_type" == "publish" ]
 else
   rm -rf ./preview.png
   rm -rf ./login.png
-  mini-deploy --mode=preview --login.format=image --login.qr='login.png' --no-resume
+  wxapp-deploy-cli --mode=preview --login.format=image --login.qr='login.png' --no-resume
 
   let "result |= $?"
 

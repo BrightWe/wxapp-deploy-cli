@@ -77,12 +77,12 @@ class WeChatCli {
                 // defaults read
                 wxPaths = [
                     'C:\\Program Files (x86)\\Tencent\\微信web开发者工具\\cli.bat',
-                    'C:\\Program Files\\Tencent\\微信web开发者工具\\cli.bat',
-                    'D:\\FE\\微信web开发者工具\\cli.bat'
+                    'C:\\Program Files\\Tencent\\微信web开发者工具\\cli.bat'
                 ];
                 const iconv = require('iconv-lite');
                 const encoding = 'cp936';
                 const binaryEncoding = 'binary';
+                // 通过注册表查询微信开发者工具安装路径
                 const result2 = await tool.executeCommand('REG QUERY "HKLM\\SOFTWARE\\Wow6432Node\\Tencent\\微信web开发者工具"', {
                     encoding: binaryEncoding,
                 });
@@ -100,8 +100,8 @@ class WeChatCli {
         this.wxpath = wxPaths.find(wxpath => tool.fsExistsSync(wxpath));
         if (this.wxpath) {
             try {
+                // 启动开发者工具（仅打开工具，不打开项目）
                 const result = await this.executeCli(['-o']);
-
                 if (result && result.code === 0) {
                     console.log('devtool启动成功！');
                     return true;
@@ -124,12 +124,9 @@ class WeChatCli {
         try {
             return await tool.shell(this.wxpath, args, null, this.isDebug, this.resume);
         } catch (e) {
-            // console.log('executeCli error', e);
-
             if (e.stderr.indexOf('需要重新登录') > 0) {
                 throw new Error('reLogin');
             }
-
             return e;
         }
     }
@@ -144,7 +141,7 @@ class WeChatCli {
                 '--preview-info-output',
                 this.previewConfig.previewLog,
             ];
-
+            
             if (this.previewConfig.compileCondition) {
                 args.push('--compile-condition');
                 args.push(this.previewConfig.compileCondition);
@@ -187,14 +184,14 @@ class WeChatCli {
 
         // jenkins中利用该信息显示Build详情
         if (this.loginConfig.format === 'image') {
-            const linkUrl = path.join('./ws', this.loginConfig.originQr);
+            const linkUrl = path.join('./dist', this.loginConfig.originQr);
 
             // eslint-disable-next-line
             console.log(
-                '[mini-deploy] <img src="' + linkUrl + '" alt="登录码" width="200" height="200" /><a href="' + linkUrl + '" target="_blank">登录码</a>'
+                '[wxapp-deploy-cli] <img src="' + linkUrl + '" alt="登录码" width="200" height="200" /><a href="' + linkUrl + '" target="_blank">登录码</a>'
             );
         } else if (this.loginConfig.format === 'terminal') {
-            console.log('[mini-deploy] 进入Build详情扫码登录微信开发工具');
+            console.log('[wxapp-deploy-cli] 进入Build详情扫码登录微信开发工具');
         }
 
         const loginResult = await this.login();

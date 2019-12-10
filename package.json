@@ -1,6 +1,6 @@
 {
   "name": "wxapp-deploy-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "cli tools for deploy wechat applet automaticlly",
   "main": "index.js",
   "bin": {
